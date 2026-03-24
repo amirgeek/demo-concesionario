@@ -348,6 +348,66 @@
       font-size: 0.9rem;
     }
 
+
+    /* ── SLIDER ── */
+    .slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px 12px 0 0;
+      aspect-ratio: 16/8;
+      background: #e8edf2;
+    }
+    .slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .slider-track img {
+      min-width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      border: none;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, opacity 0.15s;
+      z-index: 5;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .slider-arrow:hover { background: #fff; }
+    .slider-arrow.hidden { opacity: 0; pointer-events: none; }
+    .slider-prev { left: 0.75rem; }
+    .slider-next { right: 0.75rem; }
+    .slider-dots {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.4rem;
+    }
+    .slider-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+    }
+    .slider-dot.active { background: #fff; transform: scale(1.25); }
+
     /* ── MODAL ── */
     .modal-overlay {
       display: none;
@@ -583,7 +643,12 @@
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
   <div class="modal" id="modal">
     <button class="modal-close" onclick="closeModal(null, true)">✕</button>
-    <img class="modal-img" id="modal-img" src="" alt="" />
+    <div class="slider" id="modal-slider">
+      <div class="slider-track" id="slider-track"></div>
+      <button class="slider-arrow slider-prev" id="slider-prev" onclick="slideMove(-1)">&#8249;</button>
+      <button class="slider-arrow slider-next" id="slider-next" onclick="slideMove(1)">&#8250;</button>
+      <div class="slider-dots" id="slider-dots"></div>
+    </div>
     <div class="modal-body">
       <div class="modal-header">
         <div>
@@ -640,6 +705,11 @@
       precio: '$54.900.000', badge: '0 km',
       desc: 'La Hilux SRX es la versión top de gama de Toyota Argentina. Viene con tapizados de cuero, sistema multimedia con pantalla táctil, climatizador automático y control de tracción inteligente. Ideal para ciudad y campo.',
       foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/2016_Toyota_HiLux_Invincible_D-4D_4WD_2.4_Front.jpg/1280px-2016_Toyota_HiLux_Invincible_D-4D_4WD_2.4_Front.jpg',
+      fotos: [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/2016_Toyota_HiLux_Invincible_D-4D_4WD_2.4_Front.jpg/1280px-2016_Toyota_HiLux_Invincible_D-4D_4WD_2.4_Front.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Toyota_Hilux_Revo_2015_rear.jpg/1280px-Toyota_Hilux_Revo_2015_rear.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/2021_Toyota_Hilux_GR_Sport_%28Australia%29%2C_front_8.21.21.jpg/1280px-2021_Toyota_Hilux_GR_Sport_%28Australia%29%2C_front_8.21.21.jpg'
+      ],
       featured: true
     },
     {
@@ -654,7 +724,12 @@
       ],
       precio: '$48.500.000', badge: 'Usado',
       desc: 'La Amarok V6 es la pickup más potente de su segmento. Este ejemplar está en excelente estado, con service al día y verificación policial. Cuenta con sistema de sonido premium, cuero y asientos calefaccionados.',
-      foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/VW_Amarok_3.0_TDI_4Motion_Style_%28II%29_%E2%80%93_f_05072025.jpg/1280px-VW_Amarok_3.0_TDI_4Motion_Style_%28II%29_%E2%80%93_f_05072025.jpg'
+      foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/VW_Amarok_3.0_TDI_4Motion_Style_%28II%29_%E2%80%93_f_05072025.jpg/1280px-VW_Amarok_3.0_TDI_4Motion_Style_%28II%29_%E2%80%93_f_05072025.jpg',
+      fotos: [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/VW_Amarok_3.0_TDI_4Motion_Style_%28II%29_%E2%80%93_f_05072025.jpg/1280px-VW_Amarok_3.0_TDI_4Motion_Style_%28II%29_%E2%80%93_f_05072025.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/VW_Amarok_DC_Highline_Plus_V6_TDI_4Motion_%28II%29_%E2%80%93_r_05072025.jpg/1280px-VW_Amarok_DC_Highline_Plus_V6_TDI_4Motion_%28II%29_%E2%80%93_r_05072025.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/VW_Amarok_V6_TDI_Aventura_4MOTION_%28II%2C_Facelift%29%2C_Frontansicht%2C_9._September_2019%2C_D%C3%BCsseldorf.jpg/1280px-VW_Amarok_V6_TDI_Aventura_4MOTION_%28II%2C_Facelift%29%2C_Frontansicht%2C_9._September_2019%2C_D%C3%BCsseldorf.jpg'
+      ]
     },
     {
       marca: 'Ford', modelo: 'Ranger Limited 2024',
@@ -668,7 +743,12 @@
       ],
       precio: '$51.200.000', badge: '0 km',
       desc: 'Nueva Ranger Limited 2024 con tecnología Co-Pilot 360, pantalla SYNC 4 de 12 pulgadas, asistente de freno automático y diseño exterior renovado. Financiación disponible con todos los bancos.',
-      foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Ford_Ranger_2.0_EcoBlue_4WD_Wildtrak_X_%28IV%29_%E2%80%93_f_12102024.jpg/1280px-Ford_Ranger_2.0_EcoBlue_4WD_Wildtrak_X_%28IV%29_%E2%80%93_f_12102024.jpg'
+      foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Ford_Ranger_2.0_EcoBlue_4WD_Wildtrak_X_%28IV%29_%E2%80%93_f_12102024.jpg/1280px-Ford_Ranger_2.0_EcoBlue_4WD_Wildtrak_X_%28IV%29_%E2%80%93_f_12102024.jpg',
+      fotos: [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Ford_Ranger_2.0_EcoBlue_4WD_Wildtrak_X_%28IV%29_%E2%80%93_f_12102024.jpg/1280px-Ford_Ranger_2.0_EcoBlue_4WD_Wildtrak_X_%28IV%29_%E2%80%93_f_12102024.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ford_Ranger_2.0_EcoBlue_4WD_Wildtrak_X_%28IV%29_%E2%80%93_r_12102024.jpg/1280px-Ford_Ranger_2.0_EcoBlue_4WD_Wildtrak_X_%28IV%29_%E2%80%93_r_12102024.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/2023_Ford_Ranger_XLT_%28Australia%29%2C_front_10.22.jpg/1280px-2023_Ford_Ranger_XLT_%28Australia%29%2C_front_10.22.jpg'
+      ]
     },
     {
       marca: 'Jeep', modelo: 'Compass Trailhawk 2023',
@@ -682,7 +762,12 @@
       ],
       precio: '$44.000.000', badge: 'Usado',
       desc: 'El Compass Trailhawk es la versión off-road más equipada de Jeep. Con capacidad 4x4 Trail Rated, suspensión reforzada, skid plates de protección y modos de conducción Select-Terrain. Único dueño, con todos los services.',
-      foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2019_Jeep_Compass_Limited_2.4L%2C_front_7.6.19.jpg/1280px-2019_Jeep_Compass_Limited_2.4L%2C_front_7.6.19.jpg'
+      foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2019_Jeep_Compass_Limited_2.4L%2C_front_7.6.19.jpg/1280px-2019_Jeep_Compass_Limited_2.4L%2C_front_7.6.19.jpg',
+      fotos: [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2019_Jeep_Compass_Limited_2.4L%2C_front_7.6.19.jpg/1280px-2019_Jeep_Compass_Limited_2.4L%2C_front_7.6.19.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/2019_Jeep_Compass_Limited_2.4L%2C_rear_7.6.19.jpg/1280px-2019_Jeep_Compass_Limited_2.4L%2C_rear_7.6.19.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Jeep_Compass_Trailhawk_2017_IMG_0802.jpg/1280px-Jeep_Compass_Trailhawk_2017_IMG_0802.jpg'
+      ]
     }
   ];
 
@@ -757,13 +842,56 @@
   let _autosData = [];
   let _marcaActiva = 'Todos';
 
+  let _sliderIdx = 0;
+  let _sliderFotos = [];
+
+  function buildSlider(fotos, nombre) {
+    _sliderFotos = fotos;
+    _sliderIdx = 0;
+    const track = document.getElementById('slider-track');
+    const dots  = document.getElementById('slider-dots');
+    track.innerHTML = fotos.map(f =>
+      `<img src="${f}" alt="${nombre}" loading="lazy" />`
+    ).join('');
+    dots.innerHTML = fotos.map((_, i) =>
+      `<button class="slider-dot${i===0?' active':''}" onclick="slideTo(${i})"></button>`
+    ).join('');
+    updateSlider();
+  }
+
+  function updateSlider() {
+    document.getElementById('slider-track').style.transform = `translateX(-${_sliderIdx * 100}%)`;
+    document.querySelectorAll('.slider-dot').forEach((d,i) =>
+      d.classList.toggle('active', i === _sliderIdx)
+    );
+    document.getElementById('slider-prev').classList.toggle('hidden', _sliderIdx === 0);
+    document.getElementById('slider-next').classList.toggle('hidden', _sliderIdx === _sliderFotos.length - 1);
+  }
+
+  function slideMove(dir) {
+    _sliderIdx = Math.max(0, Math.min(_sliderFotos.length - 1, _sliderIdx + dir));
+    updateSlider();
+  }
+
+  function slideTo(i) { _sliderIdx = i; updateSlider(); }
+
+  // Swipe touch support
+  let _touchX = 0;
+  document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('modal-slider');
+    slider.addEventListener('touchstart', e => { _touchX = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', e => {
+      const diff = _touchX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) slideMove(diff > 0 ? 1 : -1);
+    });
+  });
+
   function openModal(idx) {
     const a = _autosData[idx];
     if (!a) return;
     const nombre = `${a.marca} ${a.modelo}`;
-
-    document.getElementById('modal-img').src = a.foto;
-    document.getElementById('modal-img').alt = nombre;
+    const fotos = a.fotos || [a.foto];
+    buildSlider(fotos, nombre);
     document.getElementById('modal-make').textContent = a.marca;
     document.getElementById('modal-model').textContent = a.modelo;
     document.getElementById('modal-price').textContent = a.precio;
@@ -791,7 +919,13 @@
     }
   }
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(null, true); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal(null, true);
+    if (document.getElementById('modal-overlay').classList.contains('open')) {
+      if (e.key === 'ArrowLeft')  slideMove(-1);
+      if (e.key === 'ArrowRight') slideMove(1);
+    }
+  });
 
   function parsePrecio(str) {
     return parseInt((str || '0').replace(/[^0-9]/g, '')) || 0;
