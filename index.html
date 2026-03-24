@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoPrime — Concesionario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    oklch(12% 0.01 250);
+      --paper:  oklch(97% 0.005 80);
+      --gold:   oklch(72% 0.12 75);
+      --muted:  oklch(45% 0.01 250);
+      --line:   oklch(88% 0.005 80);
+      --accent: oklch(18% 0.01 250);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: var(--paper);
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .logo span { color: var(--gold); }
+    nav ul { display: flex; gap: 2.5rem; list-style: none; }
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink);
+      color: var(--paper) !important;
+      padding: 0.55rem 1.4rem;
+      font-size: 0.8rem !important;
+      letter-spacing: 0.08em;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--ink) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 88vh;
+      overflow: hidden;
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 4rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 1.8rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 38ch;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.9rem 2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold); color: var(--ink); transform: translateY(-1px); }
+    .btn-ghost {
+      color: var(--ink);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+      background: var(--accent);
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: transform 8s ease;
+    }
+    .hero-image:hover img { transform: scale(1.04); }
+    .hero-badge {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 2.5rem;
+      background: var(--paper);
+      padding: 1.2rem 1.8rem;
+      border-left: 3px solid var(--gold);
+    }
+    .hero-badge strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      display: block;
+    }
+    .hero-badge span { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      padding: 0.9rem 0;
+      background: var(--ink);
+    }
+    .marquee {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee span {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: oklch(80% 0.005 80);
+    }
+    .marquee .dot { color: var(--gold); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── STOCK SECTION ── */
+    .section { padding: 6rem 4rem; }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3.5rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1.5rem;
+    }
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 300;
+    }
+    .section-link {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .section-link:hover { color: var(--ink); border-color: var(--ink); }
+
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .car-card {
+      background: white;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .car-card:hover { transform: translateY(-4px); }
+    .car-card:first-child {
+      grid-column: span 2;
+    }
+    .car-image {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      background: #e8e4df;
+    }
+    .car-card:first-child .car-image { aspect-ratio: 16/8; }
+    .car-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .car-card:hover .car-image img { transform: scale(1.04); }
+    .car-tag {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+    }
+    .car-tag.usado { background: var(--gold); color: var(--ink); }
+    .car-info { padding: 1.4rem 1.6rem 1.8rem; }
+    .car-make {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+    .car-model {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+    .car-specs {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .car-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+    .car-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    .car-price span { font-size: 0.75rem; font-family: 'DM Sans', sans-serif; color: var(--muted); font-weight: 400; }
+    .car-btn {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: all 0.2s;
+    }
+    .car-btn:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* ── WHY US ── */
+    .why-section {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 6rem 4rem;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .why-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+    .why-title em { font-style: italic; color: var(--gold); }
+    .why-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 3rem;
+    }
+    .why-item { border-top: 1px solid oklch(30% 0.01 250); padding-top: 1.5rem; }
+    .why-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .why-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: oklch(70% 0.01 250);
+      margin-bottom: 0.4rem;
+    }
+    .why-desc { font-size: 0.88rem; color: oklch(60% 0.01 250); line-height: 1.6; }
+
+    /* ── CONTACT ── */
+    #contacto { padding: 6rem 4rem; }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact-info .section-title { margin-bottom: 1.2rem; }
+    .contact-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .contact-detail strong { color: var(--ink); }
+
+    .form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .field label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .field input, .field select, .field textarea {
+      border: 1px solid var(--line);
+      background: transparent;
+      padding: 0.85rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--ink);
+    }
+    .field select { appearance: none; cursor: pointer; }
+    .form-submit {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    .whatsapp-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .whatsapp-link:hover { color: #25D366; }
+    .whatsapp-icon {
+      width: 18px; height: 18px;
+      fill: currentColor;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── AI CHAT BADGE ── */
+    .ai-badge {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.9rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      z-index: 999;
+      border: 1px solid oklch(30% 0.01 250);
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 8px 24px oklch(0% 0 0 / 0.2);
+    }
+    .ai-badge:hover { background: var(--gold); color: var(--ink); transform: translateY(-2px); }
+    .ai-dot {
+      width: 7px; height: 7px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      nav ul { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 50vw; }
+      .hero-text { padding: 3rem 1.5rem; }
+      .section, #contacto { padding: 4rem 1.5rem; }
+      .cars-grid { grid-template-columns: 1fr; }
+      .car-card:first-child { grid-column: span 1; }
+      .why-grid, .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      .why-section { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Auto<span>Prime</span></div>
+  <ul>
+    <li><a href="#stock">Stock</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#contacto" class="nav-cta">Consultar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Concesionario Oficial · Mar del Plata</p>
+    <h1 class="hero-title">Encontrá tu<br>próximo<br><em>auto ideal</em></h1>
+    <p class="hero-sub">
+      Más de 80 vehículos disponibles. Financiación en el momento,
+      precio claro y atención personalizada desde el primer mensaje.
+    </p>
+    <div class="hero-actions">
+      <a href="#stock" class="btn-primary">Ver stock</a>
+      <a href="#contacto" class="btn-ghost">Hablar con un asesor</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1200&q=80" alt="Automóvil de lujo" />
+    <div class="hero-badge">
+      <strong>80+</strong>
+      <span>Vehículos disponibles</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>Toyota</span><span class="dot">·</span>
+    <span>Volkswagen</span><span class="dot">·</span>
+    <span>Ford</span><span class="dot">·</span>
+    <span>Chevrolet</span><span class="dot">·</span>
+    <span>Renault</span><span class="dot">·</span>
+    <span>Peugeot</span><span class="dot">·</span>
+    <span>Fiat</span><span class="dot">·</span>
+    <span>Honda</span><span class="dot">·</span>
+    <span>Jeep</span><span class="dot">·</span>
+    <span>Nissan</span><span class="dot">·</span>
+    <!-- repeat for seamless loop -->
+    <span>Toyota</span><span class="dot">·</span>
+    <span>Volkswagen</span><span class="dot">·</span>
+    <span>Ford</span><span class="dot">·</span>
+    <span>Chevrolet</span><span class="dot">·</span>
+    <span>Renault</span><span class="dot">·</span>
+    <span>Peugeot</span><span class="dot">·</span>
+    <span>Fiat</span><span class="dot">·</span>
+    <span>Honda</span><span class="dot">·</span>
+    <span>Jeep</span><span class="dot">·</span>
+    <span>Nissan</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- STOCK -->
+<section class="section" id="stock">
+  <div class="section-header">
+    <div>
+      <p class="section-label">Disponibles ahora</p>
+      <h2 class="section-title">Nuestro Stock</h2>
+    </div>
+    <a href="#contacto" class="section-link">Ver todos →</a>
+  </div>
+
+  <div class="cars-grid">
+    <!-- Card 1 (grande) -->
+    <div class="car-card">
+      <div class="car-image">
+        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1200&q=80" alt="Toyota Hilux" />
+        <span class="car-tag">Destacado</span>
+      </div>
+      <div class="car-info">
+        <p class="car-make">Toyota</p>
+        <h3 class="car-model">Hilux SRX 4x4 2024</h3>
+        <div class="car-specs">
+          <span>2.8 TDI</span>
+          <span>·</span>
+          <span>204 CV</span>
+          <span>·</span>
+          <span>0 km</span>
+          <span>·</span>
+          <span>Blanco Perla</span>
+        </div>
+        <div class="car-footer">
+          <div class="car-price">$54.900.000 <span>ARS</span></div>
+          <a href="#contacto" class="car-btn">Consultar precio</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="car-card">
+      <div class="car-image">
+        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80" alt="VW Amarok" />
+        <span class="car-tag usado">Usado</span>
+      </div>
+      <div class="car-info">
+        <p class="car-make">Volkswagen</p>
+        <h3 class="car-model">Amarok V6 2022</h3>
+        <div class="car-specs">
+          <span>3.0 TDI</span>
+          <span>·</span>
+          <span>42.000 km</span>
+        </div>
+        <div class="car-footer">
+          <div class="car-price">$48.500.000 <span>ARS</span></div>
+          <a href="#contacto" class="car-btn">Consultar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="car-card">
+      <div class="car-image">
+        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&q=80" alt="Ford Ranger" />
+        <span class="car-tag">0 km</span>
+      </div>
+      <div class="car-info">
+        <p class="car-make">Ford</p>
+        <h3 class="car-model">Ranger Limited 2024</h3>
+        <div class="car-specs">
+          <span>2.0 BiTurbo</span>
+          <span>·</span>
+          <span>0 km</span>
+        </div>
+        <div class="car-footer">
+          <div class="car-price">$51.200.000 <span>ARS</span></div>
+          <a href="#contacto" class="car-btn">Consultar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="car-card">
+      <div class="car-image">
+        <img src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=800&q=80" alt="Jeep Compass" />
+        <span class="car-tag usado">Usado</span>
+      </div>
+      <div class="car-info">
+        <p class="car-make">Jeep</p>
+        <h3 class="car-model">Compass Trailhawk 2023</h3>
+        <div class="car-specs">
+          <span>2.4 AT9</span>
+          <span>·</span>
+          <span>18.000 km</span>
+        </div>
+        <div class="car-footer">
+          <div class="car-price">$44.000.000 <span>ARS</span></div>
+          <a href="#contacto" class="car-btn">Consultar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section" id="nosotros">
+  <div class="why-grid">
+    <div>
+      <p class="section-label" style="color: var(--gold);">Por qué elegirnos</p>
+      <h2 class="why-title">Más que<br>un <em>concesionario</em></h2>
+    </div>
+    <div class="why-items">
+      <div class="why-item">
+        <div class="why-num">15+</div>
+        <div class="why-label">Años en el mercado</div>
+        <div class="why-desc">Trayectoria y confianza respaldada por miles de clientes en Mar del Plata.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">80+</div>
+        <div class="why-label">Unidades en stock</div>
+        <div class="why-desc">Stock propio y rotación permanente. Siempre tenemos lo que buscás.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">24h</div>
+        <div class="why-label">Respuesta garantizada</div>
+        <div class="why-desc">Nuestro asistente IA responde al instante. Un asesor te contacta en el día.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">100%</div>
+        <div class="why-label">Financiación en el momento</div>
+        <div class="why-desc">Trabajamos con todos los bancos. Simulá tu cuota antes de venir.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contacto">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <p class="section-label">Escribinos</p>
+      <h2 class="section-title">¿Encontraste<br>tu auto?</h2>
+      <p class="contact-desc">Completá el formulario y un asesor te contacta en menos de una hora con toda la información, precio final y opciones de financiación.</p>
+      <div class="contact-detail">
+        <span>📍</span>
+        <span><strong>Av. Independencia 3500</strong>, Mar del Plata</span>
+      </div>
+      <div class="contact-detail">
+        <span>📞</span>
+        <span><strong>+54 223 000-0000</strong></span>
+      </div>
+      <div class="contact-detail">
+        <span>🕐</span>
+        <span>Lun–Sáb 9:00 a 19:00</span>
+      </div>
+    </div>
+    <form class="form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="field">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre" required />
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="tel" placeholder="223 XXX-XXXX" required />
+        </div>
+      </div>
+      <div class="field">
+        <label>¿Qué auto te interesa?</label>
+        <select required>
+          <option value="">Seleccioná un modelo...</option>
+          <option>Toyota Hilux SRX 4x4 2024</option>
+          <option>Volkswagen Amarok V6 2022</option>
+          <option>Ford Ranger Limited 2024</option>
+          <option>Jeep Compass Trailhawk 2023</option>
+          <option>Otro (consultá disponibilidad)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>¿Consultás financiación?</label>
+        <select>
+          <option>Sí, quiero saber las cuotas</option>
+          <option>No, pago contado</option>
+          <option>Todavía no lo sé</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Mensaje (opcional)</label>
+        <textarea rows="3" placeholder="¿Tenés alguna pregunta específica?"></textarea>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-primary">Enviar consulta →</button>
+        <a href="https://wa.me/5492230000000?text=Hola!%20Vi%20su%20sitio%20y%20quiero%20consultar%20sobre%20un%20auto" class="whatsapp-link" target="_blank">
+          <svg class="whatsapp-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribir por WhatsApp
+        </a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo" style="font-size: 1.1rem;">Auto<span>Prime</span></div>
+  <p>© 2024 AutoPrime Mar del Plata. Todos los derechos reservados.</p>
+  <p style="font-size: 0.72rem;">Sitio armado con ❤️ por <strong>Faro Labs</strong></p>
+</footer>
+
+<!-- AI FLOATING BADGE -->
+<div class="ai-badge" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+  <div class="ai-dot"></div>
+  <span>Asistente IA · En línea</span>
+</div>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-primary');
+    btn.textContent = '✓ Enviado — Te contactamos pronto';
+    btn.style.background = 'var(--gold)';
+    btn.style.color = 'var(--ink)';
+    btn.disabled = true;
+  }
+
+  // Subtle scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.car-card, .why-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
