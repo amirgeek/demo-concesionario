@@ -6,472 +6,324 @@
   <title>PG Autos — Concesionario Mar del Plata</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:    oklch(12% 0.01 250);
-      --paper:  oklch(97% 0.005 80);
-      --gold:   oklch(72% 0.12 75);
-      --muted:  oklch(45% 0.01 250);
-      --line:   oklch(88% 0.005 80);
-      --accent: oklch(18% 0.01 250);
+      --bg:      #f5f5f5;
+      --white:   #ffffff;
+      --ink:     #1a1a1a;
+      --muted:   #6b6b6b;
+      --border:  #e0e0e0;
+      --accent:  #2563eb;
+      --accent-h:#1d4ed8;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--paper);
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
       color: var(--ink);
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.6;
     }
 
     /* ── NAV ── */
     nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 4rem;
-      border-bottom: 1px solid var(--line);
+      height: 60px;
       position: sticky;
       top: 0;
-      background: var(--paper);
       z-index: 100;
     }
     .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
+      font-size: 1.15rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: -0.01em;
     }
-    .logo span { color: var(--gold); }
-    nav ul { display: flex; gap: 2.5rem; list-style: none; }
+    .logo span { color: var(--accent); }
+    nav ul { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
     nav a {
       text-decoration: none;
       color: var(--muted);
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.2s;
+      font-size: 0.875rem;
+      transition: color 0.15s;
     }
     nav a:hover { color: var(--ink); }
     .nav-cta {
-      background: var(--ink);
-      color: var(--paper) !important;
-      padding: 0.55rem 1.4rem;
-      font-size: 0.8rem !important;
-      letter-spacing: 0.08em;
-      transition: background 0.2s !important;
+      background: var(--accent);
+      color: #fff !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      font-size: 0.85rem !important;
+      font-weight: 500;
+      transition: background 0.15s !important;
     }
-    .nav-cta:hover { background: var(--gold) !important; color: var(--ink) !important; }
+    .nav-cta:hover { background: var(--accent-h) !important; }
 
     /* ── HERO ── */
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 88vh;
-      overflow: hidden;
+      min-height: 78vh;
+      background: var(--white);
     }
     .hero-text {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 5rem 4rem 5rem 4rem;
+      padding: 4rem 3rem 4rem 4rem;
     }
-    .hero-eyebrow {
+    .hero-tag {
+      display: inline-block;
+      background: #eff6ff;
+      color: var(--accent);
       font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 99px;
       margin-bottom: 1.5rem;
     }
     .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 5vw, 5.5rem);
-      font-weight: 300;
-      line-height: 1.05;
-      margin-bottom: 1.8rem;
-    }
-    .hero-title em {
-      font-style: italic;
-      color: var(--gold);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
     }
     .hero-sub {
       color: var(--muted);
       font-size: 1rem;
-      max-width: 38ch;
-      margin-bottom: 2.5rem;
+      max-width: 40ch;
+      margin-bottom: 2rem;
       line-height: 1.7;
     }
-    .hero-actions { display: flex; gap: 1rem; align-items: center; }
-    .btn-primary {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 0.9rem 2rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 6px;
       border: none;
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      text-decoration: none;
-      display: inline-block;
+      transition: background 0.15s, transform 0.1s;
+      font-family: 'Inter', sans-serif;
     }
-    .btn-primary:hover { background: var(--gold); color: var(--ink); transform: translateY(-1px); }
-    .btn-ghost {
-      color: var(--ink);
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-bottom: 1px solid var(--ink);
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-h); }
+    .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+    .btn-outline:hover { background: var(--bg); }
+
     .hero-image {
-      position: relative;
       overflow: hidden;
-      background: var(--accent);
+      background: #e8edf2;
     }
     .hero-image img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
-      opacity: 0.85;
-      transition: transform 8s ease;
-    }
-    .hero-image:hover img { transform: scale(1.04); }
-    .hero-badge {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 2.5rem;
-      background: var(--paper);
-      padding: 1.2rem 1.8rem;
-      border-left: 3px solid var(--gold);
-    }
-    .hero-badge strong {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-weight: 600;
       display: block;
     }
-    .hero-badge span { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; }
 
-    /* ── MARQUEE ── */
-    .marquee-wrap {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      overflow: hidden;
-      padding: 0.9rem 0;
+    /* ── STATS BAR ── */
+    .stats-bar {
       background: var(--ink);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
     }
-    .marquee {
-      display: flex;
-      gap: 3rem;
-      animation: marquee 20s linear infinite;
-      white-space: nowrap;
+    .stat {
+      padding: 1.8rem 2rem;
+      border-right: 1px solid #333;
+      text-align: center;
     }
-    .marquee span {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: oklch(80% 0.005 80);
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.02em;
     }
-    .marquee .dot { color: var(--gold); }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+    .stat-label {
+      font-size: 0.75rem;
+      color: #888;
+      margin-top: 0.2rem;
     }
 
-    /* ── STOCK SECTION ── */
-    .section { padding: 6rem 4rem; }
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 3.5rem;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 1.5rem;
-    }
-    .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.6rem;
-    }
+    /* ── SECTION ── */
+    .section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
     .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3vw, 3rem);
-      font-weight: 300;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
     }
-    .section-link {
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .section-link:hover { color: var(--ink); border-color: var(--ink); }
+    .section-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
 
+    /* ── CARS GRID ── */
     .cars-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+      gap: 1rem;
     }
-
     .car-card {
-      background: white;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s;
+      transition: box-shadow 0.2s, transform 0.2s;
     }
-    .car-card:hover { transform: translateY(-4px); }
-    .car-card:first-child {
-      grid-column: span 2;
+    .car-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
     }
-    .car-image {
+    .car-card.featured { grid-column: span 2; }
+    .car-img {
       position: relative;
       overflow: hidden;
       aspect-ratio: 16/9;
-      background: #e8e4df;
+      background: #e8edf2;
     }
-    .car-card:first-child .car-image { aspect-ratio: 16/8; }
-    .car-image img {
-      width: 100%;
-      height: 100%;
+    .car-img img {
+      width: 100%; height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      display: block;
+      transition: transform 0.4s;
     }
-    .car-card:hover .car-image img { transform: scale(1.04); }
-    .car-tag {
+    .car-card:hover .car-img img { transform: scale(1.03); }
+    .badge {
       position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: var(--ink);
-      color: var(--paper);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.7rem;
-    }
-    .car-tag.usado { background: var(--gold); color: var(--ink); }
-    .car-info { padding: 1.4rem 1.6rem 1.8rem; }
-    .car-make {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.2rem;
-    }
-    .car-model {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-      margin-bottom: 0.5rem;
-    }
-    .car-specs {
-      display: flex;
-      gap: 1.2rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 1.2rem;
-    }
-    .car-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--line);
-      padding-top: 1rem;
-    }
-    .car-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
+      top: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.68rem;
       font-weight: 600;
-    }
-    .car-price span { font-size: 0.75rem; font-family: 'DM Sans', sans-serif; color: var(--muted); font-weight: 400; }
-    .car-btn {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 2px;
-      transition: all 0.2s;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
     }
-    .car-btn:hover { color: var(--ink); border-color: var(--ink); }
+    .badge-new { background: var(--accent); color: #fff; }
+    .badge-used { background: #1a1a1a; color: #fff; }
 
-    /* ── WHY US ── */
-    .why-section {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 6rem 4rem;
+    .car-body { padding: 1.2rem; }
+    .car-make { font-size: 0.72rem; color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+    .car-model { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .car-specs { display: flex; gap: 1rem; font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; flex-wrap: wrap; }
+    .car-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 0.9rem; }
+    .car-price { font-size: 1.1rem; font-weight: 600; }
+    .car-price small { font-size: 0.72rem; color: var(--muted); font-weight: 400; }
+    .car-cta {
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
     }
-    .why-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .why-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3vw, 3.5rem);
-      font-weight: 300;
-      line-height: 1.1;
-    }
-    .why-title em { font-style: italic; color: var(--gold); }
-    .why-items {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem 3rem;
-    }
-    .why-item { border-top: 1px solid oklch(30% 0.01 250); padding-top: 1.5rem; }
-    .why-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-    .why-label {
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: oklch(70% 0.01 250);
-      margin-bottom: 0.4rem;
-    }
-    .why-desc { font-size: 0.88rem; color: oklch(60% 0.01 250); line-height: 1.6; }
+    .car-cta:hover { text-decoration: underline; }
 
     /* ── CONTACT ── */
-    #contacto { padding: 6rem 4rem; }
-    .contact-wrap {
+    #contacto { background: var(--white); }
+    .contact-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: start;
+      gap: 4rem;
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .contact-info .section-title { margin-bottom: 1.2rem; }
-    .contact-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; }
+    .contact-label { font-size: 0.72rem; color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+    .contact-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.8rem; line-height: 1.7; }
     .contact-detail {
       display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 0.8rem;
-      font-size: 0.9rem;
-      color: var(--muted);
+      align-items: flex-start;
+      gap: 0.7rem;
+      margin-bottom: 0.9rem;
+      font-size: 0.875rem;
     }
-    .contact-detail strong { color: var(--ink); }
+    .contact-detail a { color: var(--ink); text-decoration: none; }
+    .contact-detail a:hover { color: var(--accent); }
+    .contact-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
 
-    .form { display: flex; flex-direction: column; gap: 1.2rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-    .field { display: flex; flex-direction: column; gap: 0.4rem; }
-    .field label {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
+    .map-wrap {
+      margin-top: 1.5rem;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
     }
+
+    /* ── FORM ── */
+    .form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field { display: flex; flex-direction: column; gap: 0.35rem; }
+    .field label { font-size: 0.78rem; font-weight: 500; color: var(--ink); }
     .field input, .field select, .field textarea {
-      border: 1px solid var(--line);
-      background: transparent;
-      padding: 0.85rem 1rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
       color: var(--ink);
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.15s, background 0.15s;
       resize: none;
     }
     .field input:focus, .field select:focus, .field textarea:focus {
-      border-color: var(--ink);
+      border-color: var(--accent);
+      background: var(--white);
     }
-    .field select { appearance: none; cursor: pointer; }
-    .form-submit {
+    .field select { cursor: pointer; }
+    .btn-wa {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
-      margin-top: 0.5rem;
-    }
-    .whatsapp-link {
-      display: flex;
-      align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      font-size: 0.82rem;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
+      background: #25D366;
+      color: #fff;
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.15s;
+      margin-top: 0.3rem;
     }
-    .whatsapp-link:hover { color: #25D366; }
-    .whatsapp-icon {
-      width: 18px; height: 18px;
-      fill: currentColor;
-    }
+    .btn-wa:hover { background: #1ebe5d; }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--line);
-      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    footer p { font-size: 0.78rem; color: var(--muted); }
-
-    /* ── AI CHAT BADGE ── */
-    .ai-badge {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--ink);
-      color: var(--paper);
-      padding: 0.9rem 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      z-index: 999;
-      border: 1px solid oklch(30% 0.01 250);
-      transition: background 0.2s, transform 0.15s;
-      box-shadow: 0 8px 24px oklch(0% 0 0 / 0.2);
-    }
-    .ai-badge:hover { background: var(--gold); color: var(--ink); transform: translateY(-2px); }
-    .ai-dot {
-      width: 7px; height: 7px;
-      background: #4ade80;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: var(--white);
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1.2rem 1.5rem; }
+    @media (max-width: 860px) {
       nav ul { display: none; }
       .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-image { height: 50vw; }
-      .hero-text { padding: 3rem 1.5rem; }
-      .section, #contacto { padding: 4rem 1.5rem; }
+      .hero-image { height: 52vw; }
+      .hero-text { padding: 2.5rem 1.5rem; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-bottom: 1px solid #333; }
       .cars-grid { grid-template-columns: 1fr; }
-      .car-card:first-child { grid-column: span 1; }
-      .why-grid, .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
-      .why-section { padding: 4rem 1.5rem; }
-      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+      .car-card.featured { grid-column: span 1; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; padding: 2.5rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; }
     }
   </style>
 </head>
@@ -491,212 +343,130 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-text">
-    <p class="hero-eyebrow">PG Autos · Mar del Plata</p>
-    <h1 class="hero-title">Encontrá tu<br>próximo<br><em>auto ideal</em></h1>
+    <span class="hero-tag">Concesionario · Mar del Plata</span>
+    <h1 class="hero-title">Tu próximo auto<br>está acá</h1>
     <p class="hero-sub">
-      Más de 80 vehículos disponibles. Financiación en el momento,
-      precio claro y atención personalizada desde el primer mensaje.
+      Más de 80 vehículos en stock. Financiación en el acto,
+      precio claro y atención directa sin vueltas.
     </p>
     <div class="hero-actions">
-      <a href="#stock" class="btn-primary">Ver stock</a>
-      <a href="#contacto" class="btn-ghost">Hablar con un asesor</a>
+      <a href="#stock" class="btn btn-primary">Ver stock</a>
+      <a href="#contacto" class="btn btn-outline">Consultar por WhatsApp</a>
     </div>
   </div>
   <div class="hero-image">
-    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1200&q=80" alt="Automóvil de lujo" />
-    <div class="hero-badge">
-      <strong>80+</strong>
-      <span>Vehículos disponibles</span>
-    </div>
+    <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1200&q=80" alt="Autos en stock" />
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee">
-    <span>Toyota</span><span class="dot">·</span>
-    <span>Volkswagen</span><span class="dot">·</span>
-    <span>Ford</span><span class="dot">·</span>
-    <span>Chevrolet</span><span class="dot">·</span>
-    <span>Renault</span><span class="dot">·</span>
-    <span>Peugeot</span><span class="dot">·</span>
-    <span>Fiat</span><span class="dot">·</span>
-    <span>Honda</span><span class="dot">·</span>
-    <span>Jeep</span><span class="dot">·</span>
-    <span>Nissan</span><span class="dot">·</span>
-    <!-- repeat for seamless loop -->
-    <span>Toyota</span><span class="dot">·</span>
-    <span>Volkswagen</span><span class="dot">·</span>
-    <span>Ford</span><span class="dot">·</span>
-    <span>Chevrolet</span><span class="dot">·</span>
-    <span>Renault</span><span class="dot">·</span>
-    <span>Peugeot</span><span class="dot">·</span>
-    <span>Fiat</span><span class="dot">·</span>
-    <span>Honda</span><span class="dot">·</span>
-    <span>Jeep</span><span class="dot">·</span>
-    <span>Nissan</span><span class="dot">·</span>
-  </div>
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">80+</div><div class="stat-label">Vehículos en stock</div></div>
+  <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Años de trayectoria</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Financiación disponible</div></div>
+  <div class="stat"><div class="stat-num">24hs</div><div class="stat-label">Respuesta garantizada</div></div>
 </div>
 
 <!-- STOCK -->
 <section class="section" id="stock">
-  <div class="section-header">
-    <div>
-      <p class="section-label">Disponibles ahora</p>
-      <h2 class="section-title">Nuestro Stock</h2>
-    </div>
-    <a href="#contacto" class="section-link">Ver todos →</a>
-  </div>
+  <h2 class="section-title">Stock disponible</h2>
+  <p class="section-sub">Actualizamos el stock permanentemente. Consultanos por un modelo específico.</p>
 
   <div class="cars-grid">
-    <!-- Card 1 (grande) -->
-    <div class="car-card">
-      <div class="car-image">
-        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1200&q=80" alt="Toyota Hilux" />
-        <span class="car-tag">Destacado</span>
+    <div class="car-card featured">
+      <div class="car-img">
+        <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1200&q=80" alt="Toyota Hilux" />
+        <span class="badge badge-new">0 km</span>
       </div>
-      <div class="car-info">
+      <div class="car-body">
         <p class="car-make">Toyota</p>
         <h3 class="car-model">Hilux SRX 4x4 2024</h3>
         <div class="car-specs">
-          <span>2.8 TDI</span>
-          <span>·</span>
-          <span>204 CV</span>
-          <span>·</span>
-          <span>0 km</span>
-          <span>·</span>
-          <span>Blanco Perla</span>
+          <span>2.8 TDI</span><span>204 CV</span><span>Blanco Perla</span>
         </div>
         <div class="car-footer">
-          <div class="car-price">$54.900.000 <span>ARS</span></div>
-          <a href="#contacto" class="car-btn">Consultar precio</a>
+          <div class="car-price">$54.900.000 <small>ARS</small></div>
+          <a href="#contacto" class="car-cta">Consultar →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 2 -->
     <div class="car-card">
-      <div class="car-image">
+      <div class="car-img">
         <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80" alt="VW Amarok" />
-        <span class="car-tag usado">Usado</span>
+        <span class="badge badge-used">Usado</span>
       </div>
-      <div class="car-info">
+      <div class="car-body">
         <p class="car-make">Volkswagen</p>
         <h3 class="car-model">Amarok V6 2022</h3>
-        <div class="car-specs">
-          <span>3.0 TDI</span>
-          <span>·</span>
-          <span>42.000 km</span>
-        </div>
+        <div class="car-specs"><span>3.0 TDI</span><span>42.000 km</span></div>
         <div class="car-footer">
-          <div class="car-price">$48.500.000 <span>ARS</span></div>
-          <a href="#contacto" class="car-btn">Consultar</a>
+          <div class="car-price">$48.500.000 <small>ARS</small></div>
+          <a href="#contacto" class="car-cta">Consultar →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 3 -->
     <div class="car-card">
-      <div class="car-image">
+      <div class="car-img">
         <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&q=80" alt="Ford Ranger" />
-        <span class="car-tag">0 km</span>
+        <span class="badge badge-new">0 km</span>
       </div>
-      <div class="car-info">
+      <div class="car-body">
         <p class="car-make">Ford</p>
         <h3 class="car-model">Ranger Limited 2024</h3>
-        <div class="car-specs">
-          <span>2.0 BiTurbo</span>
-          <span>·</span>
-          <span>0 km</span>
-        </div>
+        <div class="car-specs"><span>2.0 BiTurbo</span><span>0 km</span></div>
         <div class="car-footer">
-          <div class="car-price">$51.200.000 <span>ARS</span></div>
-          <a href="#contacto" class="car-btn">Consultar</a>
+          <div class="car-price">$51.200.000 <small>ARS</small></div>
+          <a href="#contacto" class="car-cta">Consultar →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 4 -->
     <div class="car-card">
-      <div class="car-image">
+      <div class="car-img">
         <img src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=800&q=80" alt="Jeep Compass" />
-        <span class="car-tag usado">Usado</span>
+        <span class="badge badge-used">Usado</span>
       </div>
-      <div class="car-info">
+      <div class="car-body">
         <p class="car-make">Jeep</p>
         <h3 class="car-model">Compass Trailhawk 2023</h3>
-        <div class="car-specs">
-          <span>2.4 AT9</span>
-          <span>·</span>
-          <span>18.000 km</span>
-        </div>
+        <div class="car-specs"><span>2.4 AT9</span><span>18.000 km</span></div>
         <div class="car-footer">
-          <div class="car-price">$44.000.000 <span>ARS</span></div>
-          <a href="#contacto" class="car-btn">Consultar</a>
+          <div class="car-price">$44.000.000 <small>ARS</small></div>
+          <a href="#contacto" class="car-cta">Consultar →</a>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY US -->
-<section class="why-section" id="nosotros">
-  <div class="why-grid">
-    <div>
-      <p class="section-label" style="color: var(--gold);">Por qué elegirnos</p>
-      <h2 class="why-title">Más que<br>un <em>concesionario</em></h2>
-    </div>
-    <div class="why-items">
-      <div class="why-item">
-        <div class="why-num">15+</div>
-        <div class="why-label">Años en el mercado</div>
-        <div class="why-desc">Trayectoria y confianza respaldada por miles de clientes en Mar del Plata y la región.</div>
-      </div>
-      <div class="why-item">
-        <div class="why-num">80+</div>
-        <div class="why-label">Unidades en stock</div>
-        <div class="why-desc">Stock propio y rotación permanente. Siempre tenemos lo que buscás.</div>
-      </div>
-      <div class="why-item">
-        <div class="why-num">24h</div>
-        <div class="why-label">Respuesta garantizada</div>
-        <div class="why-desc">Nuestro asistente IA responde al instante. Un asesor te contacta en el día.</div>
-      </div>
-      <div class="why-item">
-        <div class="why-num">100%</div>
-        <div class="why-label">Financiación en el momento</div>
-        <div class="why-desc">Trabajamos con todos los bancos. Simulá tu cuota antes de venir.</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contacto">
-  <div class="contact-wrap">
-    <div class="contact-info">
-      <p class="section-label">Escribinos</p>
-      <h2 class="section-title">¿Encontraste<br>tu auto?</h2>
-      <p class="contact-desc">Completá el formulario y un asesor te contacta en menos de una hora con toda la información, precio final y opciones de financiación.</p>
+<div id="contacto">
+  <div class="contact-inner">
+    <div>
+      <p class="contact-label">Contacto</p>
+      <h2 class="section-title">¿Te interesa algún auto?</h2>
+      <p class="contact-desc">Completá el formulario y te abrimos WhatsApp directo con toda la info lista para enviar.</p>
+
       <div class="contact-detail">
-        <span>📍</span>
-        <span><strong>20 de Septiembre 3556</strong>, Mar del Plata</span>
+        <span class="contact-icon">📍</span>
+        <span>20 de Septiembre 3556, Mar del Plata, Buenos Aires</span>
       </div>
       <div class="contact-detail">
-        <span>📞</span>
-        <a href="https://wa.me/5492236212829" style="color:inherit;text-decoration:none;"><strong>+54 9 2236 21-2829</strong></a>
+        <span class="contact-icon">📞</span>
+        <a href="https://wa.me/5492236212829">+54 9 2236 21-2829</a>
       </div>
       <div class="contact-detail">
-        <span>🕐</span>
+        <span class="contact-icon">🕐</span>
         <span>Lun–Sáb 9:00 a 19:00</span>
       </div>
 
-      <!-- Google Maps -->
-      <div style="margin-top:1.8rem;overflow:hidden;border:1px solid var(--line);">
+      <div class="map-wrap">
         <iframe
-          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=20+de+Septiembre+3556,+Mar+del+Plata,+Buenos+Aires,+Argentina"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3143.622815161473!2d-57.57130122342134!3d-38.009257471927185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9584debbb7861ddf%3A0x581f6369a0b194a2!2s20%20de%20Septiembre%203556%2C%20B7600%20Mar%20del%20Plata%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1774351381387!5m2!1ses-419!2sar"
           width="100%"
-          height="220"
+          height="240"
           style="border:0;display:block;"
           allowfullscreen=""
           loading="lazy"
@@ -704,6 +474,7 @@
         </iframe>
       </div>
     </div>
+
     <form class="form" onsubmit="handleSubmit(event)">
       <div class="form-row">
         <div class="field">
@@ -727,7 +498,7 @@
         </select>
       </div>
       <div class="field">
-        <label>¿Consultás financiación?</label>
+        <label>¿Necesitás financiación?</label>
         <select id="f-financiacion">
           <option>Sí, quiero saber las cuotas</option>
           <option>No, pago contado</option>
@@ -736,64 +507,41 @@
       </div>
       <div class="field">
         <label>Mensaje (opcional)</label>
-        <textarea id="f-mensaje" rows="3" placeholder="¿Tenés alguna pregunta específica?"></textarea>
+        <textarea id="f-mensaje" rows="3" placeholder="¿Tenés alguna pregunta?"></textarea>
       </div>
-      <div class="form-submit">
-        <button type="submit" class="btn-primary">Enviar por WhatsApp →</button>
-      </div>
+      <button type="submit" class="btn-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enviar por WhatsApp
+      </button>
     </form>
   </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="logo" style="font-size: 1.1rem;">PG <span>Autos</span></div>
-  <p>© 2024 PG Autos Mar del Plata. Todos los derechos reservados.</p>
-  <p style="font-size: 0.72rem;">Sitio armado con ❤️ por <strong>Faro Labs</strong></p>
+  <div class="logo">PG <span>Autos</span></div>
+  <p>© 2024 PG Autos — Mar del Plata</p>
+  <p>Sitio web por <strong>Faro Labs</strong></p>
 </footer>
-
-<!-- AI FLOATING BADGE -->
-<div class="ai-badge" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
-  <div class="ai-dot"></div>
-  <span>Asistente IA · En línea</span>
-</div>
 
 <script>
   function handleSubmit(e) {
     e.preventDefault();
-    const nombre      = document.getElementById('f-nombre').value.trim();
-    const telefono    = document.getElementById('f-telefono').value.trim();
-    const auto        = document.getElementById('f-auto').value;
+    const nombre       = document.getElementById('f-nombre').value.trim();
+    const telefono     = document.getElementById('f-telefono').value.trim();
+    const auto         = document.getElementById('f-auto').value;
     const financiacion = document.getElementById('f-financiacion').value;
-    const mensaje     = document.getElementById('f-mensaje').value.trim();
+    const mensaje      = document.getElementById('f-mensaje').value.trim();
 
-    let texto = `Hola! Me comunico desde su sitio web 🚗\n\n`;
+    let texto = `Hola PG Autos! 👋 Me comunico desde su sitio web.\n\n`;
     texto += `*Nombre:* ${nombre}\n`;
     texto += `*Teléfono:* ${telefono}\n`;
     texto += `*Auto de interés:* ${auto}\n`;
     texto += `*Financiación:* ${financiacion}\n`;
-    if (mensaje) texto += `*Mensaje:* ${mensaje}\n`;
+    if (mensaje) texto += `*Consulta:* ${mensaje}\n`;
 
-    const url = `https://wa.me/5492236212829?text=${encodeURIComponent(texto)}`;
-    window.open(url, '_blank');
+    window.open(`https://wa.me/5492236212829?text=${encodeURIComponent(texto)}`, '_blank');
   }
-
-  // Subtle scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.car-card, .why-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
-  });
 </script>
 </body>
 </html>
