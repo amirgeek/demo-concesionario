@@ -386,7 +386,7 @@
         </div>
         <div class="car-footer">
           <div class="car-price">$54.900.000 <small>ARS</small></div>
-          <a href="#contacto" class="car-cta">Consultar →</a>
+          <a href="#contacto" class="car-cta" onclick="selectCar('Toyota Hilux SRX 4x4 2024')">Consultar →</a>
         </div>
       </div>
     </div>
@@ -402,7 +402,7 @@
         <div class="car-specs"><span>3.0 TDI</span><span>42.000 km</span></div>
         <div class="car-footer">
           <div class="car-price">$48.500.000 <small>ARS</small></div>
-          <a href="#contacto" class="car-cta">Consultar →</a>
+          <a href="#contacto" class="car-cta" onclick="selectCar('Volkswagen Amarok V6 2022')">Consultar →</a>
         </div>
       </div>
     </div>
@@ -418,7 +418,7 @@
         <div class="car-specs"><span>2.0 BiTurbo</span><span>0 km</span></div>
         <div class="car-footer">
           <div class="car-price">$51.200.000 <small>ARS</small></div>
-          <a href="#contacto" class="car-cta">Consultar →</a>
+          <a href="#contacto" class="car-cta" onclick="selectCar('Ford Ranger Limited 2024')">Consultar →</a>
         </div>
       </div>
     </div>
@@ -434,7 +434,7 @@
         <div class="car-specs"><span>2.4 AT9</span><span>18.000 km</span></div>
         <div class="car-footer">
           <div class="car-price">$44.000.000 <small>ARS</small></div>
-          <a href="#contacto" class="car-cta">Consultar →</a>
+          <a href="#contacto" class="car-cta" onclick="selectCar('Jeep Compass Trailhawk 2023')">Consultar →</a>
         </div>
       </div>
     </div>
@@ -525,6 +525,23 @@
 </footer>
 
 <script>
+  function selectCar(modelo) {
+    const select = document.getElementById('f-auto');
+    for (let i = 0; i < select.options.length; i++) {
+      if (select.options[i].text === modelo) {
+        select.selectedIndex = i;
+        break;
+      }
+    }
+    // highlight brevemente el campo
+    select.style.borderColor = 'var(--accent)';
+    select.style.background = '#eff6ff';
+    setTimeout(() => {
+      select.style.borderColor = '';
+      select.style.background = '';
+    }, 1500);
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     const nombre       = document.getElementById('f-nombre').value.trim();
