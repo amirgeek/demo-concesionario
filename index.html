@@ -35,6 +35,9 @@
       display: block;
       mix-blend-mode: multiply;
     }
+    @media (max-width: 600px) {
+      .nav-logo { height: 28px; }
+    }
     /* ── NAV ── */
     nav {
       background: var(--white);
@@ -795,7 +798,10 @@
     while (selectEl.options.length > 1) selectEl.remove(1);
 
     // Construir botones de marca
-    const marcas = ['Todos', ...new Set(autos.map(a => a.marca))];
+    const EXTRA_MARCAS = ['Chevrolet', 'Renault', 'Peugeot'];
+    const autoBrands = [...new Set(autos.map(a => a.marca))];
+    const extrasToAdd = EXTRA_MARCAS.filter(m => !autoBrands.includes(m));
+    const marcas = ['Todos', ...autoBrands, ...extrasToAdd];
     const brandsEl = document.getElementById('filter-brands');
     brandsEl.innerHTML = marcas.map(m =>
       `<button class="filter-btn${m === _marcaActiva ? ' active' : ''}" onclick="setMarca('${m}', this)">${m}</button>`
